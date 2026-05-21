@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇪🇺 ヨーロッパ旅行 | 旅先・期間 未定</title>
+<title>ヨーロッパ旅行 | 旅先・期間 未定</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Bebas+Neue&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.min.js"></script>
 <style>
   :root {
     --primary: #1565c0;
@@ -49,7 +50,11 @@
     letter-spacing: 2px;
     color: var(--gold);
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
+  .nav-logo svg { width: 16px; height: 16px; stroke: var(--gold); flex-shrink: 0; }
   .nav-hamburger {
     margin-left: auto;
     background: none;
@@ -91,6 +96,7 @@
   .nav-menu-item {
     display: flex;
     align-items: center;
+    gap: 10px;
     padding: 14px 24px;
     font-size: 14px;
     font-weight: 500;
@@ -104,6 +110,7 @@
   .nav-menu-item:last-child { border-bottom: none; }
   .nav-menu-item:hover { color: var(--text); background: rgba(255,255,255,0.04); }
   .nav-menu-item.active { color: var(--text); border-left-color: var(--gold); padding-left: 21px; }
+  .nav-menu-item svg { width: 16px; height: 16px; flex-shrink: 0; }
 
   /* NAV RELOAD */
   .nav-reload {
@@ -162,7 +169,15 @@
     inset: 0;
     background: radial-gradient(ellipse 40% 30% at 80% 80%, rgba(244,196,48,0.06) 0%, transparent 60%);
   }
-  .hero-flag { font-size: 52px; margin-bottom: 12px; display: block; position: relative; z-index: 1; }
+  .hero-flag {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-flag svg { width: 52px; height: 52px; stroke: var(--gold); stroke-width: 1.25; }
   .hero-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(36px, 8vw, 64px);
@@ -218,6 +233,7 @@
     position: relative;
     z-index: 1;
   }
+  .hero-dates svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--muted); }
 
   /* SECTION */
   section { padding: 32px 20px; max-width: 720px; margin: 0 auto; }
@@ -229,7 +245,13 @@
     padding-bottom: 12px;
     border-bottom: 1px solid var(--border);
   }
-  .section-icon { font-size: 22px; }
+  .section-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+  }
+  .section-icon svg { width: 20px; height: 20px; }
   .section-title { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
   .section-count { margin-left: auto; font-size: 12px; color: var(--muted); }
 
@@ -242,7 +264,14 @@
     text-align: center;
     color: var(--muted);
   }
-  .placeholder-card .placeholder-icon { font-size: 48px; margin-bottom: 16px; display: block; opacity: 0.5; }
+  .placeholder-card .placeholder-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+  .placeholder-card .placeholder-icon svg { width: 44px; height: 44px; stroke-width: 1.5; }
   .placeholder-card .placeholder-title { font-size: 15px; font-weight: 700; color: rgba(240,237,232,0.6); margin-bottom: 8px; }
   .placeholder-card .placeholder-desc { font-size: 13px; line-height: 1.6; }
 
@@ -310,7 +339,9 @@
     padding: 6px 0; margin-bottom: 0;
     color: var(--text); text-align: left;
   }
-  .souvenir-toggle-arrow { font-size: 12px; color: var(--muted); transition: transform 0.2s; }
+  .souvenir-section-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .souvenir-toggle-arrow { color: var(--muted); transition: transform 0.2s; display: flex; align-items: center; }
+  .souvenir-toggle-arrow svg { width: 14px; height: 14px; }
   .souvenir-toggle-arrow.collapsed { transform: rotate(-90deg); }
   .souvenir-section-body { overflow: hidden; transition: max-height 0.25s ease; max-height: 2000px; }
   .souvenir-section-body.collapsed { max-height: 0; }
@@ -327,13 +358,18 @@
     width: 20px; height: 20px;
     border-radius: 5px; border: 2px solid rgba(255,255,255,0.22);
     flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-    transition: all 0.18s; margin-top: 1px; font-size: 12px;
+    transition: all 0.18s; margin-top: 1px;
   }
+  .checkbox svg { width: 11px; height: 11px; }
   .check-item.done .checkbox { background: #27ae60; border-color: #27ae60; color: white; }
   .check-label { font-size: 13px; line-height: 1.4; flex: 1; }
   .check-item.done .check-label { text-decoration: line-through; }
   .check-note { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; }
-  .check-link-icon { font-size: 12px; color: var(--muted); margin-left: auto; padding-left: 8px; flex-shrink: 0; cursor: pointer; }
+  .check-link-icon {
+    display: flex; align-items: center;
+    color: var(--muted); margin-left: auto; padding-left: 8px; flex-shrink: 0; cursor: pointer;
+  }
+  .check-link-icon svg { width: 12px; height: 12px; }
   .check-link-icon:hover { color: var(--text); }
 
   /* PROGRESS BAR */
@@ -408,9 +444,11 @@
   .emg-label { font-size: 13px; font-weight: 700; color: var(--text); text-align: center; }
   .emg-note  { font-size: 11px; color: var(--muted); text-align: center; }
   .emg-section-label {
+    display: flex; align-items: center; gap: 6px;
     font-size: 11px; color: var(--muted);
     letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;
   }
+  .emg-section-label svg { width: 13px; height: 13px; flex-shrink: 0; }
   .emg-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 10px; overflow: hidden; margin-bottom: 10px;
@@ -437,7 +475,11 @@
   .emg-phone-row span:first-child { color: var(--muted); flex-shrink: 0; }
   .emg-phone { font-weight: 700; color: #5dade2; font-size: 14px; }
   .emg-addr { padding: 8px 14px; font-size: 11px; color: var(--muted); border-top: 1px solid var(--border); line-height: 1.6; }
-  .emg-hours { padding: 6px 14px 10px; font-size: 11px; color: var(--muted); }
+  .emg-hours {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px 10px; font-size: 11px; color: var(--muted);
+  }
+  .emg-hours svg { width: 12px; height: 12px; flex-shrink: 0; }
   .emg-sub-label { font-size: 12px; font-weight: 600; color: var(--muted); margin: 12px 0 8px; }
 
   /* HOTEL CARDS */
@@ -501,7 +543,8 @@
   .flight-name { font-size: 11px; color: var(--muted); margin-top: 2px; }
   .flight-middle { flex: 1; text-align: center; }
   .flight-duration { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
-  .flight-arrow { font-size: 18px; color: var(--muted); }
+  .flight-arrow { display: flex; align-items: center; justify-content: center; color: var(--muted); }
+  .flight-arrow svg { width: 18px; height: 18px; }
   .flight-meta { border-top: 1px solid var(--border); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; }
   .flight-meta-row { display: flex; justify-content: space-between; font-size: 12px; }
   .flight-meta-row span:first-child { color: var(--muted); }
@@ -520,7 +563,8 @@
     text-align: center;
     display: flex; flex-direction: column; gap: 16px;
   }
-  #pw-flag { font-size: 48px; }
+  #pw-flag { display: flex; align-items: center; justify-content: center; }
+  #pw-flag svg { width: 52px; height: 52px; stroke: var(--gold); stroke-width: 1.25; }
   #pw-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 28px; letter-spacing: 3px;
@@ -633,9 +677,11 @@
   }
   .expense-delete-btn {
     background: none; border: none; color: var(--muted);
-    cursor: pointer; font-size: 16px; padding: 0 2px; line-height: 1;
+    cursor: pointer; padding: 0 2px;
     flex-shrink: 0; transition: color 0.15s;
+    display: flex; align-items: center;
   }
+  .expense-delete-btn svg { width: 14px; height: 14px; }
   .expense-delete-btn:hover { color: #e74c3c; }
   .expense-item { flex: 1; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .expense-payer-badge {
@@ -650,8 +696,9 @@
     background: none; border: 2px solid var(--border); border-radius: 50%;
     width: 20px; height: 20px; flex-shrink: 0; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; color: transparent; transition: all 0.15s; padding: 0;
+    color: transparent; transition: all 0.15s; padding: 0;
   }
+  .expense-check-btn svg { width: 10px; height: 10px; }
   .expense-check-btn:hover { border-color: #27ae60; }
   .expense-check-btn.checked { background: #27ae60; border-color: #27ae60; color: #fff; }
   .expense-row.settled { opacity: 0.45; }
@@ -660,10 +707,11 @@
   .money-loading { color: var(--muted); font-size: 13px; padding: 20px 0; text-align: center; }
   .money-error { color: #e74c3c; font-size: 13px; padding: 16px; background: rgba(192,57,43,0.1); border-radius: 8px; text-align: center; }
   .drag-handle {
-    color: var(--muted); cursor: grab; font-size: 16px;
-    padding: 0 2px; flex-shrink: 0; user-select: none; touch-action: none;
-    line-height: 1; opacity: 0.5;
+    color: var(--muted); cursor: grab; padding: 0 2px; flex-shrink: 0;
+    user-select: none; touch-action: none; opacity: 0.5;
+    display: flex; align-items: center;
   }
+  .drag-handle svg { width: 14px; height: 14px; }
   .drag-handle:active { cursor: grabbing; opacity: 1; }
   [data-id].dragging { opacity: 0.35; }
   @media (max-width: 480px) {
@@ -711,9 +759,14 @@
   }
   .home-nav-btn:hover { background: var(--surface2); border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
   .home-nav-btn:active { transform: translateY(0); }
-  .home-nav-icon { font-size: 28px; line-height: 1; }
+  .home-nav-icon { line-height: 1; display: flex; align-items: center; color: var(--muted); }
+  .home-nav-icon svg { width: 26px; height: 26px; }
   .home-nav-label { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.3px; }
-  .home-nav-arrow { position: absolute; right: 12px; bottom: 12px; font-size: 12px; color: var(--muted); }
+  .home-nav-arrow {
+    position: absolute; right: 12px; bottom: 12px;
+    color: var(--muted); display: flex; align-items: center;
+  }
+  .home-nav-arrow svg { width: 13px; height: 13px; }
 </style>
 </head>
 <body>
@@ -721,7 +774,9 @@
 <!-- PASSWORD GATE -->
 <div id="pw-gate">
   <div id="pw-box">
-    <div id="pw-flag">🇪🇺</div>
+    <div id="pw-flag">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    </div>
     <div id="pw-title">EUROPE TRIP</div>
     <p id="pw-desc">友達だけのページです。パスワードを入力してください。</p>
     <input type="password" id="pw-input" placeholder="password" autocomplete="off" />
@@ -731,7 +786,10 @@
 </div>
 
 <nav>
-  <div class="nav-logo" id="nav-logo" style="cursor:pointer;">🇪🇺 EUROPE</div>
+  <div class="nav-logo" id="nav-logo" style="cursor:pointer;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    EUROPE
+  </div>
   <button class="nav-reload" id="nav-reload" aria-label="リロード">
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="23 4 23 10 17 10"/>
@@ -749,66 +807,69 @@
   </svg>
 </div>
 <div class="nav-dropdown" id="nav-dropdown">
-  <a class="nav-menu-item active" href="#" data-tab="home">🏠 ホーム</a>
-  <a class="nav-menu-item" href="#" data-tab="itinerary">🗓 スケジュール</a>
-  <a class="nav-menu-item" href="#" data-tab="money">💶 お金</a>
-  <a class="nav-menu-item" href="#" data-tab="flight">✈ 移動</a>
-  <a class="nav-menu-item" href="#" data-tab="hotel">🏨 宿泊</a>
-  <a class="nav-menu-item" href="#" data-tab="souvenir">🎁 お土産</a>
-  <a class="nav-menu-item" href="#" data-tab="emergency">🚨 緊急連絡先</a>
-  <a class="nav-menu-item" href="#" data-tab="checklist">✅ 準備リスト</a>
+  <a class="nav-menu-item active" href="#" data-tab="home"><i data-lucide="home"></i> ホーム</a>
+  <a class="nav-menu-item" href="#" data-tab="itinerary"><i data-lucide="calendar"></i> スケジュール</a>
+  <a class="nav-menu-item" href="#" data-tab="money"><i data-lucide="banknote"></i> お金</a>
+  <a class="nav-menu-item" href="#" data-tab="flight"><i data-lucide="plane"></i> 移動</a>
+  <a class="nav-menu-item" href="#" data-tab="hotel"><i data-lucide="building-2"></i> 宿泊</a>
+  <a class="nav-menu-item" href="#" data-tab="souvenir"><i data-lucide="gift"></i> お土産</a>
+  <a class="nav-menu-item" href="#" data-tab="emergency"><i data-lucide="phone-call"></i> 緊急連絡先</a>
+  <a class="nav-menu-item" href="#" data-tab="checklist"><i data-lucide="clipboard-list"></i> 準備リスト</a>
 </div>
 
 <!-- HOME TAB -->
 <div id="tab-home" class="tab-section visible">
 <div class="hero">
-  <span class="hero-flag">🇪🇺</span>
+  <div class="hero-flag">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+  </div>
   <div class="hero-title">EUROPE TRIP</div>
   <div class="hero-sub">渡航先・期間 調整中</div>
   <div class="hero-cities">
     <span class="city-pill pill-tbd">国・都市 未定</span>
   </div>
   <div class="hero-dates">
-    ✈ 出発地: TBD　｜　旅先: TBD　｜　期間: TBD
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 2c-2-2-4-2-5.5-.5L10 5 1.8 6.2c-.5.1-.9.5-1 1-.1.5.1 1 .5 1.3l2.8 2.1-1.4 4.2c-.1.4 0 .8.3 1.1.3.3.7.4 1.1.3l4.2-1.4 2.1 2.8c.3.4.8.6 1.3.5.5-.1.9-.5 1-1z"/></svg>
+    出発地: TBD　｜　旅先: TBD　｜　期間: TBD
   </div>
 </div>
 
 <section class="home-nav-section">
   <div class="home-nav-grid">
     <button class="home-nav-btn" data-tab="itinerary">
-      <span class="home-nav-icon">🗓</span>
+      <span class="home-nav-icon"><i data-lucide="calendar"></i></span>
       <span class="home-nav-label">スケジュール</span>
-      <span class="home-nav-arrow">→</span>
+      <span class="home-nav-arrow"><i data-lucide="chevron-right"></i></span>
     </button>
     <button class="home-nav-btn" data-tab="money">
-      <span class="home-nav-icon">💶</span>
+      <span class="home-nav-icon"><i data-lucide="banknote"></i></span>
       <span class="home-nav-label">お金</span>
-      <span class="home-nav-arrow">→</span>
+      <span class="home-nav-arrow"><i data-lucide="chevron-right"></i></span>
     </button>
     <button class="home-nav-btn" data-tab="flight">
-      <span class="home-nav-icon">✈</span>
+      <span class="home-nav-icon"><i data-lucide="plane"></i></span>
       <span class="home-nav-label">移動</span>
-      <span class="home-nav-arrow">→</span>
+      <span class="home-nav-arrow"><i data-lucide="chevron-right"></i></span>
     </button>
     <button class="home-nav-btn" data-tab="hotel">
-      <span class="home-nav-icon">🏨</span>
+      <span class="home-nav-icon"><i data-lucide="building-2"></i></span>
       <span class="home-nav-label">宿泊</span>
-      <span class="home-nav-arrow">→</span>
+      <span class="home-nav-arrow"><i data-lucide="chevron-right"></i></span>
     </button>
     <button class="home-nav-btn" data-tab="souvenir">
-      <span class="home-nav-icon">🎁</span>
+      <span class="home-nav-icon"><i data-lucide="gift"></i></span>
       <span class="home-nav-label">お土産</span>
-      <span class="home-nav-arrow">→</span>
+      <span class="home-nav-arrow"><i data-lucide="chevron-right"></i></span>
     </button>
     <button class="home-nav-btn" data-tab="emergency">
-      <span class="home-nav-icon">🚨</span>
+      <span class="home-nav-icon"><i data-lucide="phone-call"></i></span>
       <span class="home-nav-label">緊急連絡先</span>
-      <span class="home-nav-arrow">→</span>
+      <span class="home-nav-arrow"><i data-lucide="chevron-right"></i></span>
     </button>
     <button class="home-nav-btn" data-tab="checklist">
-      <span class="home-nav-icon">✅</span>
+      <span class="home-nav-icon"><i data-lucide="clipboard-list"></i></span>
       <span class="home-nav-label">準備リスト</span>
-      <span class="home-nav-arrow">→</span>
+      <span class="home-nav-arrow"><i data-lucide="chevron-right"></i></span>
     </button>
   </div>
 </section>
@@ -818,11 +879,11 @@
 <div id="tab-itinerary" class="tab-section">
   <section>
     <div class="section-header">
-      <span class="section-icon">🗓</span>
+      <span class="section-icon"><i data-lucide="calendar"></i></span>
       <span class="section-title">旅程スケジュール</span>
     </div>
     <div class="placeholder-card">
-      <span class="placeholder-icon">🗺</span>
+      <span class="placeholder-icon"><i data-lucide="map"></i></span>
       <div class="placeholder-title">旅程はまだ未定です</div>
       <div class="placeholder-desc">行き先と日程が決まり次第、ここにスケジュールが追加されます。<br>楽しみにしていてください！</div>
     </div>
@@ -833,7 +894,7 @@
 <div id="tab-checklist" class="tab-section">
   <section>
     <div class="section-header">
-      <span class="section-icon">✅</span>
+      <span class="section-icon"><i data-lucide="clipboard-list"></i></span>
       <span class="section-title">準備チェックリスト</span>
       <span class="section-count" id="progress-label">0 / 0</span>
     </div>
@@ -855,11 +916,11 @@
 <div id="tab-flight" class="tab-section">
   <section>
     <div class="section-header">
-      <span class="section-icon">✈</span>
+      <span class="section-icon"><i data-lucide="plane"></i></span>
       <span class="section-title">移動情報</span>
     </div>
     <div class="placeholder-card">
-      <span class="placeholder-icon">✈</span>
+      <span class="placeholder-icon"><i data-lucide="plane"></i></span>
       <div class="placeholder-title">フライト情報は未定です</div>
       <div class="placeholder-desc">航空券が確定次第、便名・時刻・PNRなどをここに追加します。</div>
     </div>
@@ -870,11 +931,11 @@
 <div id="tab-hotel" class="tab-section">
   <section>
     <div class="section-header">
-      <span class="section-icon">🏨</span>
+      <span class="section-icon"><i data-lucide="building-2"></i></span>
       <span class="section-title">宿泊情報</span>
     </div>
     <div class="placeholder-card">
-      <span class="placeholder-icon">🏨</span>
+      <span class="placeholder-icon"><i data-lucide="building-2"></i></span>
       <div class="placeholder-title">宿泊情報は未定です</div>
       <div class="placeholder-desc">ホテルが確定次第、チェックイン・チェックアウト・住所などをここに追加します。</div>
     </div>
@@ -885,12 +946,15 @@
 <div id="tab-emergency" class="tab-section">
   <section>
     <div class="section-header">
-      <span class="section-icon">🚨</span>
+      <span class="section-icon"><i data-lucide="phone-call"></i></span>
       <span class="section-title">緊急連絡先</span>
     </div>
 
     <!-- EU共通緊急番号 -->
-    <div class="emg-section-label">📞 EU共通緊急番号</div>
+    <div class="emg-section-label">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.36a16 16 0 0 0 5.73 5.73l1.54-1.34a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.94z"/></svg>
+      EU共通緊急番号
+    </div>
     <div class="emg-grid">
       <a href="tel:112" class="emg-btn emg-police">
         <div class="emg-num">112</div>
@@ -915,14 +979,17 @@
     </div>
 
     <!-- 日本大使館 -->
-    <div class="emg-section-label" style="margin-top: 8px;">🏛 在欧日本大使館・領事館</div>
+    <div class="emg-section-label" style="margin-top: 8px;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+      在欧日本大使館・領事館
+    </div>
     <div class="emg-card">
       <div class="emg-card-header">
         在欧日本大使館（渡航先確定後追加）
         <span class="emg-city general">TBD</span>
       </div>
       <div class="emg-addr" style="padding:14px;">
-        📌 渡航国が確定次第、最寄りの日本大使館・総領事館の連絡先をここに追加します。<br>
+        渡航国が確定次第、最寄りの日本大使館・総領事館の連絡先をここに追加します。<br>
         外務省「海外安全情報」サイトでも確認できます。
       </div>
     </div>
@@ -936,24 +1003,33 @@
         <span>24時間緊急相談（東京）</span>
         <span class="emg-phone">+81-3-6380-0047</span>
       </a>
-      <div class="emg-hours">🕐 24時間対応（海外から日本語で相談可能）</div>
+      <div class="emg-hours">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        24時間対応（海外から日本語で相談可能）
+      </div>
     </div>
 
     <!-- 国別緊急番号 -->
-    <div class="emg-section-label" style="margin-top: 16px;">🗺 主要国の緊急番号</div>
+    <div class="emg-section-label" style="margin-top: 16px;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+      主要国の緊急番号
+    </div>
     <div class="info-card">
-      <div class="info-row"><span class="info-row-label">🇪🇺 EU全域（共通）</span><span class="info-row-val">112</span></div>
-      <div class="info-row"><span class="info-row-label">🇫🇷 フランス（警察）</span><span class="info-row-val">17</span></div>
-      <div class="info-row"><span class="info-row-label">🇩🇪 ドイツ（警察）</span><span class="info-row-val">110</span></div>
-      <div class="info-row"><span class="info-row-label">🇮🇹 イタリア（警察）</span><span class="info-row-val">113</span></div>
-      <div class="info-row"><span class="info-row-label">🇪🇸 スペイン（警察）</span><span class="info-row-val">091</span></div>
-      <div class="info-row"><span class="info-row-label">🇬🇧 イギリス（警察）</span><span class="info-row-val">999 / 112</span></div>
-      <div class="info-row"><span class="info-row-label">🇦🇹 オーストリア（警察）</span><span class="info-row-val">133</span></div>
-      <div class="info-row"><span class="info-row-label">🇨🇿 チェコ（警察）</span><span class="info-row-val">158</span></div>
+      <div class="info-row"><span class="info-row-label">EU全域（共通）</span><span class="info-row-val">112</span></div>
+      <div class="info-row"><span class="info-row-label">FR フランス（警察）</span><span class="info-row-val">17</span></div>
+      <div class="info-row"><span class="info-row-label">DE ドイツ（警察）</span><span class="info-row-val">110</span></div>
+      <div class="info-row"><span class="info-row-label">IT イタリア（警察）</span><span class="info-row-val">113</span></div>
+      <div class="info-row"><span class="info-row-label">ES スペイン（警察）</span><span class="info-row-val">091</span></div>
+      <div class="info-row"><span class="info-row-label">GB イギリス（警察）</span><span class="info-row-val">999 / 112</span></div>
+      <div class="info-row"><span class="info-row-label">AT オーストリア（警察）</span><span class="info-row-val">133</span></div>
+      <div class="info-row"><span class="info-row-label">CZ チェコ（警察）</span><span class="info-row-val">158</span></div>
     </div>
 
     <!-- その他 -->
-    <div class="emg-section-label" style="margin-top: 16px;">ℹ️ その他</div>
+    <div class="emg-section-label" style="margin-top: 16px;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      その他
+    </div>
     <div class="info-card">
       <div class="info-row"><span class="info-row-label">パスポート紛失時</span><span class="info-row-val">最寄り大使館・領事館に連絡</span></div>
       <div class="info-row"><span class="info-row-label">クレカ紛失時</span><span class="info-row-val">発行会社の海外緊急デスクへ</span></div>
@@ -967,7 +1043,7 @@
 <div id="tab-souvenir" class="tab-section">
   <section>
     <div class="section-header">
-      <span class="section-icon">🎁</span>
+      <span class="section-icon"><i data-lucide="gift"></i></span>
       <span class="section-title">お土産チェックリスト</span>
       <span class="section-count" id="souvenir-progress-label">0 / 0</span>
     </div>
@@ -999,9 +1075,9 @@
 
     <div style="margin-top: 20px;">
       <button class="souvenir-section-toggle" id="souvenir-tora-toggle" data-section="tora">
-        <span style="font-size:18px;">🐯</span>
+        <i data-lucide="user" style="color:var(--gold);"></i>
         <span style="font-weight:700; font-size:15px; letter-spacing:0.5px;">虎のお土産</span>
-        <span class="souvenir-toggle-arrow" id="souvenir-tora-arrow">▼</span>
+        <i data-lucide="chevron-down" class="souvenir-toggle-arrow" id="souvenir-tora-arrow"></i>
       </button>
       <div class="souvenir-section-body" id="souvenir-tora-body">
         <div class="checklist-items" id="souvenir-tora-items">
@@ -1012,9 +1088,9 @@
 
     <div style="margin-top: 24px;">
       <button class="souvenir-section-toggle" id="souvenir-ume-toggle" data-section="ume">
-        <span style="font-size:18px;">🌸</span>
+        <i data-lucide="user" style="color:#b09ce0;"></i>
         <span style="font-weight:700; font-size:15px; letter-spacing:0.5px;">梅のお土産</span>
-        <span class="souvenir-toggle-arrow" id="souvenir-ume-arrow">▼</span>
+        <i data-lucide="chevron-down" class="souvenir-toggle-arrow" id="souvenir-ume-arrow"></i>
       </button>
       <div class="souvenir-section-body" id="souvenir-ume-body">
         <div class="checklist-items" id="souvenir-ume-items"></div>
@@ -1028,7 +1104,7 @@
 <div id="tab-money" class="tab-section">
   <section>
     <div class="section-header">
-      <span class="section-icon">💶</span>
+      <span class="section-icon"><i data-lucide="banknote"></i></span>
       <span class="section-title">お金の管理</span>
     </div>
 
@@ -1081,7 +1157,7 @@
 </div>
 
 <footer>
-  🇪🇺 ヨーロッパ旅行 ／ 旅先・期間 調整中<br>
+  ヨーロッパ旅行 ／ 旅先・期間 調整中<br>
 </footer>
 
 <script>
@@ -1133,8 +1209,15 @@
   input.focus();
 })();
 
+const SVG = {
+  check: '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  x: '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  grip: '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>',
+  arrowRight: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+};
+
 const CATEGORIES = [
-  { id: "docs", label: "📄 書類", items: [
+  { id: "docs", label: "書類", items: [
     { id: "passport", text: "パスポート（有効期限6ヶ月以上）", note: "必須" },
     { id: "passport-copy", text: "パスポートのコピー（紙・スマホ保存）", note: "紛失時に備えて" },
     { id: "schengen", text: "シェンゲン協定国の確認（ビザ不要か確認）", note: "EU加盟国以外は要確認" },
@@ -1143,13 +1226,13 @@ const CATEGORIES = [
     { id: "hotel", text: "ホテル予約確認書の保存", note: "" },
     { id: "entry-form", text: "ETIAS（欧州旅行情報認証）の申請確認", note: "2025年以降、日本人にも必要になる予定" },
   ]},
-  { id: "money", label: "💶 お金", items: [
+  { id: "money", label: "お金", items: [
     { id: "euro", text: "ユーロ（現金）の両替", note: "市内の両替所 or ATM引き出しが有利" },
     { id: "card", text: "クレジットカード（Visa / Mastercard）", note: "ヨーロッパでは現地払いが基本。ICチップ＋PIN必須" },
     { id: "budget", text: "1日の予算の目安を立てておく", note: "食事・交通・観光・ショッピング別に" },
     { id: "tip", text: "チップの相場を調べる", note: "レストランでは10〜15%が目安（国による）" },
   ]},
-  { id: "luggage", label: "🧳 荷物", items: [
+  { id: "luggage", label: "荷物", items: [
     { id: "clothes", text: "服（旅行日数分）", note: "ヨーロッパは天候が変わりやすい。重ね着推奨" },
     { id: "shoes", text: "歩きやすい靴", note: "石畳が多く、サンダル・ヒールは厳禁" },
     { id: "rain", text: "折りたたみ傘", note: "特にイギリス・北欧は雨が多い" },
@@ -1157,18 +1240,18 @@ const CATEGORIES = [
     { id: "battery", text: "モバイルバッテリー", note: "終日外出するので必須" },
     { id: "lock", text: "スーツケース用ロック（TSAロック）", note: "空港での荷物検査に対応" },
   ]},
-  { id: "electronics", label: "📱 電子機器", items: [
+  { id: "electronics", label: "電子機器", items: [
     { id: "sim", text: "ヨーロッパ用eSIM / SIM / WiFiルーター", note: "日本で事前購入が安くて便利" },
     { id: "charger", text: "スマホ充電器", note: "" },
     { id: "camera", text: "カメラ・SDカード・充電器", note: "教会・美術館・街並みなど映えスポット多数" },
   ]},
-  { id: "health", label: "💊 健康", items: [
+  { id: "health", label: "健康", items: [
     { id: "medicine", text: "常備薬（胃薬・頭痛薬・風邪薬）", note: "現地薬局でも買えるが言語の壁がある" },
     { id: "bandaid", text: "絆創膏・消毒液", note: "石畳歩きで靴擦れ対策も" },
     { id: "sunscreen", text: "日焼け止め", note: "南欧（イタリア・スペイン）は日差しが強い" },
     { id: "cold-protection", text: "防寒具（特に北部・夜間）", note: "北欧・イギリス・アルプス周辺は冷える" },
   ]},
-  { id: "apps", label: "🗺 アプリ", items: [
+  { id: "apps", label: "アプリ", items: [
     { id: "gmaps", text: "Google Maps オフラインマップのDL", note: "ヨーロッパではGoogleが主流" },
     { id: "deepl", text: "DeepL（翻訳）インストール", note: "多言語対応に強い" },
     { id: "translate", text: "Google翻訳（カメラ翻訳）インストール", note: "メニュー・看板の読み取りに便利" },
@@ -1176,7 +1259,7 @@ const CATEGORIES = [
     { id: "emergency-saved", text: "緊急連絡先をスマホに保存", note: "EU共通番号112 / 日本大使館", link: "emergency" },
     { id: "currency", text: "通貨換算アプリのインストール", note: "XE Currency など" },
   ]},
-  { id: "europe", label: "🇪🇺 ヨーロッパ特有", items: [
+  { id: "europe", label: "ヨーロッパ特有", items: [
     { id: "pickpocket", text: "スリ・置き引き対策の準備", note: "駅・観光地は特に注意。ウエストポーチ推奨" },
     { id: "toilet", text: "公共トイレは有料（€0.5〜1程度）を想定", note: "小銭を常に持ち歩く" },
     { id: "water", text: "飲料水は基本有料（南欧注意）", note: "水道水の可否は国・地域による" },
@@ -1223,8 +1306,8 @@ function renderItems() {
     const done = !!checked[item.id];
     const div = document.createElement('div');
     div.className = 'check-item' + (done ? ' done' : '');
-    const linkIcon = item.link ? '<span class="check-link-icon">→</span>' : '';
-    div.innerHTML = '<div class="checkbox">' + (done ? '✓' : '') + '</div>'
+    const linkIcon = item.link ? '<span class="check-link-icon">' + SVG.arrowRight + '</span>' : '';
+    div.innerHTML = '<div class="checkbox">' + (done ? SVG.check : '') + '</div>'
       + '<div class="check-label">' + item.text
       + (item.note ? '<span class="check-note">' + item.note + '</span>' : '')
       + '</div>' + linkIcon;
@@ -1338,10 +1421,10 @@ function renderSouvenirSection(items, containerId, emptyId) {
     div.className = 'check-item' + (item.checked ? ' done' : '');
     div.dataset.id = item.id;
     div.innerHTML =
-      '<span class="drag-handle" title="ドラッグで並べ替え">⠿</span>' +
-      '<div class="checkbox">' + (item.checked ? '✓' : '') + '</div>' +
+      '<span class="drag-handle" title="ドラッグで並べ替え">' + SVG.grip + '</span>' +
+      '<div class="checkbox">' + (item.checked ? SVG.check : '') + '</div>' +
       '<div class="check-label">' + item.text + '</div>' +
-      '<button class="expense-delete-btn" data-id="' + item.id + '" title="削除" style="margin-left:auto;">×</button>';
+      '<button class="expense-delete-btn" data-id="' + item.id + '" title="削除" style="margin-left:auto;">' + SVG.x + '</button>';
     const toggleCheck = async (e) => {
       e.stopPropagation();
       const token = localStorage.getItem('europe-auth-token');
@@ -1497,13 +1580,13 @@ function renderMoneyList(list) {
     const date = new Date(e.createdAt);
     const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
     row.innerHTML =
-      `<span class="drag-handle" title="ドラッグで並べ替え">⠿</span>` +
-      `<button class="expense-check-btn${settled ? ' checked' : ''}" title="精算済みにする">✓</button>` +
+      `<span class="drag-handle" title="ドラッグで並べ替え">${SVG.grip}</span>` +
+      `<button class="expense-check-btn${settled ? ' checked' : ''}" title="精算済みにする">${SVG.check}</button>` +
       `<span class="expense-item">${e.item}</span>` +
       `<span class="expense-payer-badge ${e.paidBy === '虎' ? 'payer-tora' : 'payer-ume'}">${e.paidBy}</span>` +
       `<span class="expense-amount">${formatMoney(e.amount)}</span>` +
       `<span class="expense-date">${dateStr}</span>` +
-      `<button class="expense-delete-btn" data-id="${e.id}" title="削除">×</button>`;
+      `<button class="expense-delete-btn" data-id="${e.id}" title="削除">${SVG.x}</button>`;
     row.querySelector('.expense-check-btn').addEventListener('click', async () => {
       const token = localStorage.getItem('europe-auth-token');
       await fetch(`/expenses/${e.id}`, {
@@ -1752,6 +1835,8 @@ function initSouvenir() {
     }
   }, { passive: true });
 })();
+
+lucide.createIcons();
 </script>
 </body>
 </html>
