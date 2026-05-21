@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇪🇺 ヨーロッパ旅行 | 旅先・期間 未定</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Bebas+Neue&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1565c0;
+    --primary-light: #42a5f5;
+    --gold: #F4C430;
+    --gold-dim: #c9a120;
+    --bg: #07080f;
+    --surface: #0d0e1c;
+    --surface2: #14152a;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0ede8;
+    --muted: rgba(240,237,232,0.48);
+    --city1: #5b9bd5;
+    --city2: #7e6dbf;
+    --city3: #5ba87e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-top: 52px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(7,8,15,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 52px;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .nav-hamburger {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+  .nav-hamburger:hover { background: rgba(255,255,255,0.06); }
+  .nav-hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--muted);
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--text); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--text); }
+
+  /* NAV DROPDOWN */
+  .nav-dropdown {
+    position: fixed;
+    top: 52px; left: 0; right: 0;
+    background: rgba(7,8,15,0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .nav-dropdown.open { max-height: 500px; }
+  .nav-menu-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .nav-menu-item:last-child { border-bottom: none; }
+  .nav-menu-item:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .nav-menu-item.active { color: var(--text); border-left-color: var(--gold); padding-left: 21px; }
+
+  /* NAV RELOAD */
+  .nav-reload {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 9px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    color: var(--muted);
+    margin-left: 8px;
+    transition: background 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-reload:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+  .nav-reload.spinning svg { animation: nav-spin 0.5s linear; }
+  @keyframes nav-spin { to { transform: rotate(360deg); } }
+
+  /* PULL TO REFRESH */
+  #ptr-indicator {
+    position: fixed;
+    top: 52px; left: 0; right: 0;
+    height: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 97;
+  }
+  #ptr-icon { color: var(--muted); transition: color 0.2s; will-change: transform; }
+  #ptr-indicator.ptr-ready #ptr-icon { color: var(--gold); }
+  #ptr-indicator.ptr-loading #ptr-icon { animation: nav-spin 0.7s linear infinite; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, #020310 0%, #07080f 40%, #070a12 100%);
+    padding: 32px 24px 36px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(21,101,192,0.18) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 40% 30% at 80% 80%, rgba(244,196,48,0.06) 0%, transparent 60%);
+  }
+  .hero-flag { font-size: 52px; margin-bottom: 12px; display: block; position: relative; z-index: 1; }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 8vw, 64px);
+    letter-spacing: 4px;
+    line-height: 1;
+    background: linear-gradient(90deg, #F4C430, #5b9bd5, #f0ede8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-cities {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+  }
+  .city-pill {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid;
+  }
+  .pill-tbd {
+    color: var(--muted);
+    border-color: rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.05);
+    font-style: italic;
+  }
+  .hero-dates {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 13px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* SECTION */
+  section { padding: 32px 20px; max-width: 720px; margin: 0 auto; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon { font-size: 22px; }
+  .section-title { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+  .section-count { margin-left: auto; font-size: 12px; color: var(--muted); }
+
+  /* PLACEHOLDER CARD */
+  .placeholder-card {
+    background: var(--surface);
+    border: 1px dashed rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--muted);
+  }
+  .placeholder-card .placeholder-icon { font-size: 48px; margin-bottom: 16px; display: block; opacity: 0.5; }
+  .placeholder-card .placeholder-title { font-size: 15px; font-weight: 700; color: rgba(240,237,232,0.6); margin-bottom: 8px; }
+  .placeholder-card .placeholder-desc { font-size: 13px; line-height: 1.6; }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .day-block { display: flex; gap: 0; position: relative; }
+  .day-line { display: flex; flex-direction: column; align-items: center; width: 40px; flex-shrink: 0; }
+  .day-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    flex-shrink: 0; margin-top: 14px;
+  }
+  .dot-tbd { background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.18); color: var(--muted); }
+  .day-connector { width: 2px; flex: 1; min-height: 12px; background: var(--border); }
+  .day-content { flex: 1; padding: 12px 0 20px 12px; }
+  .day-date { font-size: 11px; color: var(--muted); margin-bottom: 4px; letter-spacing: 1px; }
+  .day-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--muted); }
+  .spots { display: flex; flex-direction: column; gap: 4px; }
+  .spot {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 13px; color: rgba(240,237,232,0.8);
+    padding: 5px 10px; border-radius: 6px;
+    background: var(--surface); border: 1px solid var(--border);
+  }
+  .spot-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .spot-text { flex: 1; line-height: 1.4; }
+  .spot-note { font-size: 11px; color: var(--muted); display: block; margin-top: 1px; }
+  .spot.linkable { cursor: pointer; }
+  .spot.linkable:hover { border-color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.04); }
+  .spot.linkable:active { background: rgba(255,255,255,0.08); }
+  .spot.linkable .spot-link-icon { font-size: 11px; color: var(--muted); margin-left: auto; flex-shrink: 0; padding-left: 4px; }
+  .spot.sleep { background: rgba(126,109,191,0.08); border-color: rgba(126,109,191,0.28); }
+  .transit-card {
+    background: rgba(244,196,48,0.07);
+    border: 1px solid rgba(244,196,48,0.25);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  /* CHECKLIST */
+  .cat-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .cat-tab {
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px; font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .cat-tab:hover { color: var(--text); }
+  .cat-tab.active {
+    background: rgba(244,196,48,0.12);
+    border-color: rgba(244,196,48,0.45);
+    color: var(--gold);
+  }
+  .souvenir-section-toggle {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; background: none; border: none; cursor: pointer;
+    padding: 6px 0; margin-bottom: 0;
+    color: var(--text); text-align: left;
+  }
+  .souvenir-toggle-arrow { font-size: 12px; color: var(--muted); transition: transform 0.2s; }
+  .souvenir-toggle-arrow.collapsed { transform: rotate(-90deg); }
+  .souvenir-section-body { overflow: hidden; transition: max-height 0.25s ease; max-height: 2000px; }
+  .souvenir-section-body.collapsed { max-height: 0; }
+  .checklist-items { display: flex; flex-direction: column; gap: 5px; }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px; border-radius: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    cursor: pointer; transition: all 0.18s; user-select: none;
+  }
+  .check-item:hover { border-color: rgba(255,255,255,0.15); }
+  .check-item.done { opacity: 0.5; background: rgba(46,204,113,0.05); border-color: rgba(46,204,113,0.2); }
+  .checkbox {
+    width: 20px; height: 20px;
+    border-radius: 5px; border: 2px solid rgba(255,255,255,0.22);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    transition: all 0.18s; margin-top: 1px; font-size: 12px;
+  }
+  .check-item.done .checkbox { background: #27ae60; border-color: #27ae60; color: white; }
+  .check-label { font-size: 13px; line-height: 1.4; flex: 1; }
+  .check-item.done .check-label { text-decoration: line-through; }
+  .check-note { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; }
+  .check-link-icon { font-size: 12px; color: var(--muted); margin-left: auto; padding-left: 8px; flex-shrink: 0; cursor: pointer; }
+  .check-link-icon:hover { color: var(--text); }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px; margin-bottom: 16px;
+  }
+  .progress-meta {
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--muted); margin-bottom: 8px;
+  }
+  .progress-bar-bg { background: rgba(255,255,255,0.08); border-radius: 4px; height: 6px; overflow: hidden; }
+  .progress-bar-fill {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(90deg, #1565c0, #42a5f5);
+    transition: width 0.4s ease;
+  }
+
+  /* INFO CARDS */
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+  .info-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px;
+  }
+  .info-card-title { font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
+  .info-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; padding: 4px 0; border-bottom: 1px solid var(--border); gap: 8px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row-label { color: var(--muted); flex-shrink: 0; }
+  .info-row-val { font-weight: 500; text-align: right; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 32px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--muted);
+  }
+
+  /* HIDDEN */
+  .tab-section { display: none; }
+  .tab-section.visible { display: block; }
+  [id] { scroll-margin-top: 60px; }
+
+  @media (max-width: 480px) {
+    nav { padding: 0 12px; }
+    section { padding: 24px 16px; }
+    .hero { padding-top: 32px; }
+  }
+
+  /* EMERGENCY */
+  .emg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+  .emg-btn {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 18px 10px; border-radius: 12px;
+    text-decoration: none; gap: 4px; transition: filter 0.15s;
+  }
+  .emg-btn:active { filter: brightness(1.25); }
+  .emg-police  { background: rgba(21,101,192,0.15);  border: 2px solid rgba(21,101,192,0.5); }
+  .emg-fire    { background: rgba(230,126,34,0.15);  border: 2px solid rgba(230,126,34,0.5); }
+  .emg-tourist { background: rgba(39,174,96,0.15);   border: 2px solid rgba(39,174,96,0.5); }
+  .emg-medical { background: rgba(126,109,191,0.15); border: 2px solid rgba(126,109,191,0.5); }
+  .emg-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px; letter-spacing: 3px; line-height: 1;
+  }
+  .emg-police  .emg-num { color: #5b9bd5; }
+  .emg-fire    .emg-num { color: #e67e22; }
+  .emg-tourist .emg-num { color: #2ecc71; }
+  .emg-medical .emg-num { color: #a580e0; }
+  .emg-label { font-size: 13px; font-weight: 700; color: var(--text); text-align: center; }
+  .emg-note  { font-size: 11px; color: var(--muted); text-align: center; }
+  .emg-section-label {
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .emg-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-bottom: 10px;
+  }
+  .emg-card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 14px 8px; font-size: 13px; font-weight: 600; gap: 8px;
+  }
+  .emg-city {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 2px 8px; border-radius: 4px; flex-shrink: 0;
+  }
+  .emg-city.general { background: rgba(244,196,48,0.12); color: var(--gold); border: 1px solid rgba(244,196,48,0.3); }
+  .emg-city.eu    { background: rgba(21,101,192,0.15); color: var(--primary-light); border: 1px solid rgba(21,101,192,0.3); }
+  .emg-city.japan { background: rgba(231,76,60,0.12);  color: #e07070; border: 1px solid rgba(231,76,60,0.3); }
+  .emg-phone-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 14px; font-size: 12px;
+    border-top: 1px solid var(--border);
+    text-decoration: none; color: var(--text); transition: background 0.15s; gap: 8px;
+  }
+  .emg-phone-row:hover  { background: rgba(255,255,255,0.04); }
+  .emg-phone-row:active { background: rgba(255,255,255,0.08); }
+  .emg-phone-row span:first-child { color: var(--muted); flex-shrink: 0; }
+  .emg-phone { font-weight: 700; color: #5dade2; font-size: 14px; }
+  .emg-addr { padding: 8px 14px; font-size: 11px; color: var(--muted); border-top: 1px solid var(--border); line-height: 1.6; }
+  .emg-hours { padding: 6px 14px 10px; font-size: 11px; color: var(--muted); }
+  .emg-sub-label { font-size: 12px; font-weight: 600; color: var(--muted); margin: 12px 0 8px; }
+
+  /* HOTEL CARDS */
+  .hotel-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin-bottom: 14px;
+  }
+  .hotel-header {
+    padding: 16px 18px 12px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  }
+  .hotel-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    padding: 3px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+  }
+  .badge-tbd { background: rgba(255,255,255,0.07); color: var(--muted); border: 1px solid var(--border); }
+  .hotel-name { font-size: 17px; font-weight: 700; line-height: 1.3; }
+  .hotel-stars { font-size: 12px; color: var(--gold); letter-spacing: 1px; margin-top: 3px; }
+  .hotel-dates-row { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+  .hotel-dates-col {
+    flex: 1; padding: 12px 18px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .hotel-dates-col:first-child { border-right: 1px solid var(--border); }
+  .hotel-dates-label { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .hotel-dates-val { font-size: 14px; font-weight: 700; }
+  .hotel-dates-time { font-size: 11px; color: var(--muted); }
+  .hotel-address {
+    padding: 12px 18px; font-size: 12px; color: var(--muted);
+    display: flex; align-items: flex-start; gap: 6px; line-height: 1.5;
+    text-decoration: none; transition: background 0.15s;
+  }
+  a.hotel-address:hover { background: rgba(255,255,255,0.04); }
+  a.hotel-address .map-label { color: #4A90D9; text-decoration: underline; }
+  .hotel-nights {
+    padding: 10px 18px; background: rgba(255,255,255,0.02);
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--muted);
+    display: flex; justify-content: space-between;
+  }
+  .hotel-nights strong { color: var(--text); }
+
+  /* FLIGHT CARDS */
+  .flight-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; margin-bottom: 12px;
+  }
+  .flight-card.outbound { border-top: 3px solid var(--primary); }
+  .flight-card.return   { border-top: 3px solid var(--city2); }
+  .flight-direction {
+    font-size: 11px; letter-spacing: 2px; color: var(--muted);
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .flight-route {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; margin-bottom: 16px;
+  }
+  .flight-airport { text-align: center; }
+  .flight-time { font-size: 28px; font-weight: 700; font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; }
+  .flight-code { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .flight-name { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .flight-middle { flex: 1; text-align: center; }
+  .flight-duration { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .flight-arrow { font-size: 18px; color: var(--muted); }
+  .flight-meta { border-top: 1px solid var(--border); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .flight-meta-row { display: flex; justify-content: space-between; font-size: 12px; }
+  .flight-meta-row span:first-child { color: var(--muted); }
+  .flight-meta-row span:last-child { font-weight: 500; }
+
+  /* PASSWORD GATE */
+  #pw-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  #pw-box {
+    width: 100%; max-width: 360px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 40px 32px;
+    text-align: center;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  #pw-flag { font-size: 48px; }
+  #pw-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 3px;
+    background: linear-gradient(90deg, #F4C430, #5b9bd5, #f0ede8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  #pw-desc { font-size: 13px; color: var(--muted); }
+  #pw-input {
+    width: 100%; padding: 12px 16px;
+    border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text);
+    font-size: 15px; font-family: 'Noto Sans JP', sans-serif;
+    outline: none; text-align: center; letter-spacing: 2px; transition: border-color 0.2s;
+  }
+  #pw-input:focus { border-color: rgba(244,196,48,0.5); }
+  #pw-input.error { border-color: var(--primary-light); animation: shake 0.3s; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25%  { transform: translateX(-6px); }
+    75%  { transform: translateX(6px); }
+  }
+  #pw-btn {
+    width: 100%; padding: 12px;
+    border-radius: 8px; border: none;
+    background: var(--primary); color: #fff;
+    font-size: 14px; font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer; letter-spacing: 1px;
+    transition: background 0.2s, transform 0.1s;
+  }
+  #pw-btn:hover { background: #1976d2; }
+  #pw-btn:active { transform: scale(0.97); }
+  #pw-error { font-size: 12px; color: var(--primary-light); min-height: 16px; opacity: 0; transition: opacity 0.2s; }
+  #pw-error.visible { opacity: 1; }
+
+  /* MONEY TAB */
+  .money-summary-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .money-summary-totals { display: flex; align-items: center; gap: 0; }
+  .money-grand-total { font-size: 12px; color: var(--muted); flex: 1; }
+  .money-grand-total strong { color: var(--text); font-size: 15px; font-weight: 700; }
+  .money-summary-total-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; padding-left: 16px; border-left: 1px solid var(--border);
+  }
+  .money-summary-total-item .label { color: var(--muted); }
+  .money-summary-total-item .value { font-weight: 700; font-size: 15px; }
+  .settlement-box {
+    background: rgba(21,101,192,0.1);
+    border: 1px solid rgba(21,101,192,0.35);
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 13px; font-weight: 600;
+    color: var(--primary-light); text-align: center;
+  }
+  .settlement-box.settled {
+    background: rgba(39,174,96,0.1);
+    border-color: rgba(39,174,96,0.4);
+    color: #2ecc71;
+  }
+  .money-add-form {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px; margin-bottom: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .money-form-row { display: flex; gap: 8px; align-items: center; }
+  .money-form-row label { font-size: 11px; color: var(--muted); white-space: nowrap; width: 80px; flex-shrink: 0; }
+  @media (max-width: 400px) {
+    .money-form-row { flex-direction: column; align-items: stretch; gap: 4px; }
+    .money-form-row label { width: auto; }
+  }
+  .money-input {
+    flex: 1; min-width: 0;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 7px; color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif; font-size: 14px;
+    padding: 8px 10px; outline: none; transition: border-color 0.15s;
+  }
+  .money-input:focus { border-color: rgba(255,255,255,0.22); }
+  .payer-toggle { display: flex; gap: 6px; flex: 1; }
+  .payer-btn {
+    flex: 1; padding: 8px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 7px; color: var(--muted);
+    font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .payer-btn.active {
+    background: rgba(244,196,48,0.12);
+    border-color: rgba(244,196,48,0.45);
+    color: var(--gold);
+  }
+  .money-add-btn {
+    padding: 10px; background: var(--primary); border: none;
+    border-radius: 8px; color: #fff;
+    font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 700;
+    cursor: pointer; transition: opacity 0.15s;
+  }
+  .money-add-btn:disabled { opacity: 0.5; cursor: default; }
+  .money-add-btn:not(:disabled):hover { opacity: 0.85; }
+  .expense-list { display: flex; flex-direction: column; gap: 6px; }
+  .expense-row {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; font-size: 13px;
+  }
+  .expense-delete-btn {
+    background: none; border: none; color: var(--muted);
+    cursor: pointer; font-size: 16px; padding: 0 2px; line-height: 1;
+    flex-shrink: 0; transition: color 0.15s;
+  }
+  .expense-delete-btn:hover { color: #e74c3c; }
+  .expense-item { flex: 1; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .expense-payer-badge {
+    font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 20px; flex-shrink: 0;
+  }
+  .expense-payer-badge.payer-tora { background: rgba(244,196,48,0.15); color: var(--gold); }
+  .expense-payer-badge.payer-ume  { background: rgba(126,109,191,0.2); color: #b09ce0; }
+  .expense-amount { font-weight: 700; flex-shrink: 0; }
+  .expense-date { font-size: 11px; color: var(--muted); flex-shrink: 0; }
+  .expense-check-btn {
+    background: none; border: 2px solid var(--border); border-radius: 50%;
+    width: 20px; height: 20px; flex-shrink: 0; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: transparent; transition: all 0.15s; padding: 0;
+  }
+  .expense-check-btn:hover { border-color: #27ae60; }
+  .expense-check-btn.checked { background: #27ae60; border-color: #27ae60; color: #fff; }
+  .expense-row.settled { opacity: 0.45; }
+  .expense-row.settled .expense-item { text-decoration: line-through; }
+  .money-empty { color: var(--muted); font-size: 13px; padding: 20px 0; text-align: center; }
+  .money-loading { color: var(--muted); font-size: 13px; padding: 20px 0; text-align: center; }
+  .money-error { color: #e74c3c; font-size: 13px; padding: 16px; background: rgba(192,57,43,0.1); border-radius: 8px; text-align: center; }
+  .drag-handle {
+    color: var(--muted); cursor: grab; font-size: 16px;
+    padding: 0 2px; flex-shrink: 0; user-select: none; touch-action: none;
+    line-height: 1; opacity: 0.5;
+  }
+  .drag-handle:active { cursor: grabbing; opacity: 1; }
+  [data-id].dragging { opacity: 0.35; }
+  @media (max-width: 480px) {
+    .expense-date { display: none; }
+    .expense-row { padding: 8px 10px; gap: 6px; font-size: 12px; }
+    .expense-payer-badge { padding: 2px 6px; font-size: 10px; }
+    .expense-amount { font-size: 12px; }
+  }
+
+  /* CONFIRM DIALOG */
+  #confirm-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    z-index: 200; align-items: center; justify-content: center;
+  }
+  #confirm-overlay.open { display: flex; }
+  #confirm-box {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 24px 20px;
+    max-width: 300px; width: 90%; text-align: center;
+  }
+  #confirm-msg { font-size: 14px; line-height: 1.6; margin-bottom: 20px; color: var(--text); }
+  .confirm-btns { display: flex; gap: 10px; }
+  .confirm-btn {
+    flex: 1; padding: 10px; border-radius: 8px; border: none;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif; transition: opacity 0.15s;
+  }
+  .confirm-btn:hover { opacity: 0.8; }
+  #confirm-cancel { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
+  #confirm-ok { background: #c0392b; color: #fff; }
+
+  /* HOME NAV */
+  .home-nav-section { padding: 24px 20px 40px; max-width: 720px; margin: 0 auto; }
+  .home-nav-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 480px) { .home-nav-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 640px) { .home-nav-grid { grid-template-columns: repeat(4, 1fr); } }
+  .home-nav-btn {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 16px 14px;
+    cursor: pointer; text-align: left;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    position: relative; overflow: hidden;
+  }
+  .home-nav-btn:hover { background: var(--surface2); border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+  .home-nav-btn:active { transform: translateY(0); }
+  .home-nav-icon { font-size: 28px; line-height: 1; }
+  .home-nav-label { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.3px; }
+  .home-nav-arrow { position: absolute; right: 12px; bottom: 12px; font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate">
+  <div id="pw-box">
+    <div id="pw-flag">🇪🇺</div>
+    <div id="pw-title">EUROPE TRIP</div>
+    <p id="pw-desc">友達だけのページです。パスワードを入力してください。</p>
+    <input type="password" id="pw-input" placeholder="password" autocomplete="off" />
+    <button id="pw-btn">入る →</button>
+    <p id="pw-error">パスワードが違います</p>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-logo" id="nav-logo" style="cursor:pointer;">🇪🇺 EUROPE</div>
+  <button class="nav-reload" id="nav-reload" aria-label="リロード">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="23 4 23 10 17 10"/>
+      <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+    </svg>
+  </button>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="メニューを開く">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div id="ptr-indicator">
+  <svg id="ptr-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="23 4 23 10 17 10"/>
+    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+  </svg>
+</div>
+<div class="nav-dropdown" id="nav-dropdown">
+  <a class="nav-menu-item active" href="#" data-tab="home">🏠 ホーム</a>
+  <a class="nav-menu-item" href="#" data-tab="itinerary">🗓 スケジュール</a>
+  <a class="nav-menu-item" href="#" data-tab="money">💶 お金</a>
+  <a class="nav-menu-item" href="#" data-tab="flight">✈ 移動</a>
+  <a class="nav-menu-item" href="#" data-tab="hotel">🏨 宿泊</a>
+  <a class="nav-menu-item" href="#" data-tab="souvenir">🎁 お土産</a>
+  <a class="nav-menu-item" href="#" data-tab="emergency">🚨 緊急連絡先</a>
+  <a class="nav-menu-item" href="#" data-tab="checklist">✅ 準備リスト</a>
+</div>
+
+<!-- HOME TAB -->
+<div id="tab-home" class="tab-section visible">
+<div class="hero">
+  <span class="hero-flag">🇪🇺</span>
+  <div class="hero-title">EUROPE TRIP</div>
+  <div class="hero-sub">渡航先・期間 調整中</div>
+  <div class="hero-cities">
+    <span class="city-pill pill-tbd">国・都市 未定</span>
+  </div>
+  <div class="hero-dates">
+    ✈ 出発地: TBD　｜　旅先: TBD　｜　期間: TBD
+  </div>
+</div>
+
+<section class="home-nav-section">
+  <div class="home-nav-grid">
+    <button class="home-nav-btn" data-tab="itinerary">
+      <span class="home-nav-icon">🗓</span>
+      <span class="home-nav-label">スケジュール</span>
+      <span class="home-nav-arrow">→</span>
+    </button>
+    <button class="home-nav-btn" data-tab="money">
+      <span class="home-nav-icon">💶</span>
+      <span class="home-nav-label">お金</span>
+      <span class="home-nav-arrow">→</span>
+    </button>
+    <button class="home-nav-btn" data-tab="flight">
+      <span class="home-nav-icon">✈</span>
+      <span class="home-nav-label">移動</span>
+      <span class="home-nav-arrow">→</span>
+    </button>
+    <button class="home-nav-btn" data-tab="hotel">
+      <span class="home-nav-icon">🏨</span>
+      <span class="home-nav-label">宿泊</span>
+      <span class="home-nav-arrow">→</span>
+    </button>
+    <button class="home-nav-btn" data-tab="souvenir">
+      <span class="home-nav-icon">🎁</span>
+      <span class="home-nav-label">お土産</span>
+      <span class="home-nav-arrow">→</span>
+    </button>
+    <button class="home-nav-btn" data-tab="emergency">
+      <span class="home-nav-icon">🚨</span>
+      <span class="home-nav-label">緊急連絡先</span>
+      <span class="home-nav-arrow">→</span>
+    </button>
+    <button class="home-nav-btn" data-tab="checklist">
+      <span class="home-nav-icon">✅</span>
+      <span class="home-nav-label">準備リスト</span>
+      <span class="home-nav-arrow">→</span>
+    </button>
+  </div>
+</section>
+</div>
+
+<!-- ITINERARY TAB -->
+<div id="tab-itinerary" class="tab-section">
+  <section>
+    <div class="section-header">
+      <span class="section-icon">🗓</span>
+      <span class="section-title">旅程スケジュール</span>
+    </div>
+    <div class="placeholder-card">
+      <span class="placeholder-icon">🗺</span>
+      <div class="placeholder-title">旅程はまだ未定です</div>
+      <div class="placeholder-desc">行き先と日程が決まり次第、ここにスケジュールが追加されます。<br>楽しみにしていてください！</div>
+    </div>
+  </section>
+</div>
+
+<!-- CHECKLIST TAB -->
+<div id="tab-checklist" class="tab-section">
+  <section>
+    <div class="section-header">
+      <span class="section-icon">✅</span>
+      <span class="section-title">準備チェックリスト</span>
+      <span class="section-count" id="progress-label">0 / 0</span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span>準備完了度</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+    <div class="cat-tabs" id="cat-tabs"></div>
+    <div class="checklist-items" id="checklist-items"></div>
+  </section>
+</div>
+
+<!-- FLIGHT TAB -->
+<div id="tab-flight" class="tab-section">
+  <section>
+    <div class="section-header">
+      <span class="section-icon">✈</span>
+      <span class="section-title">移動情報</span>
+    </div>
+    <div class="placeholder-card">
+      <span class="placeholder-icon">✈</span>
+      <div class="placeholder-title">フライト情報は未定です</div>
+      <div class="placeholder-desc">航空券が確定次第、便名・時刻・PNRなどをここに追加します。</div>
+    </div>
+  </section>
+</div>
+
+<!-- HOTEL TAB -->
+<div id="tab-hotel" class="tab-section">
+  <section>
+    <div class="section-header">
+      <span class="section-icon">🏨</span>
+      <span class="section-title">宿泊情報</span>
+    </div>
+    <div class="placeholder-card">
+      <span class="placeholder-icon">🏨</span>
+      <div class="placeholder-title">宿泊情報は未定です</div>
+      <div class="placeholder-desc">ホテルが確定次第、チェックイン・チェックアウト・住所などをここに追加します。</div>
+    </div>
+  </section>
+</div>
+
+<!-- EMERGENCY TAB -->
+<div id="tab-emergency" class="tab-section">
+  <section>
+    <div class="section-header">
+      <span class="section-icon">🚨</span>
+      <span class="section-title">緊急連絡先</span>
+    </div>
+
+    <!-- EU共通緊急番号 -->
+    <div class="emg-section-label">📞 EU共通緊急番号</div>
+    <div class="emg-grid">
+      <a href="tel:112" class="emg-btn emg-police">
+        <div class="emg-num">112</div>
+        <div class="emg-label">緊急（共通）</div>
+        <div class="emg-note">EU全域・警察・消防・救急</div>
+      </a>
+      <a href="tel:112" class="emg-btn emg-fire">
+        <div class="emg-num">112</div>
+        <div class="emg-label">Fire / 消防</div>
+        <div class="emg-note">一部国は独自番号あり</div>
+      </a>
+      <a href="tel:112" class="emg-btn emg-medical">
+        <div class="emg-num">112</div>
+        <div class="emg-label">Ambulance / 救急</div>
+        <div class="emg-note">英語・仏語・独語対応</div>
+      </a>
+      <a href="tel:+81363800047" class="emg-btn emg-tourist">
+        <div class="emg-num" style="font-size:24px;">外務省</div>
+        <div class="emg-label">日本外務省</div>
+        <div class="emg-note">海外安全相談</div>
+      </a>
+    </div>
+
+    <!-- 日本大使館 -->
+    <div class="emg-section-label" style="margin-top: 8px;">🏛 在欧日本大使館・領事館</div>
+    <div class="emg-card">
+      <div class="emg-card-header">
+        在欧日本大使館（渡航先確定後追加）
+        <span class="emg-city general">TBD</span>
+      </div>
+      <div class="emg-addr" style="padding:14px;">
+        📌 渡航国が確定次第、最寄りの日本大使館・総領事館の連絡先をここに追加します。<br>
+        外務省「海外安全情報」サイトでも確認できます。
+      </div>
+    </div>
+
+    <div class="emg-card">
+      <div class="emg-card-header">
+        外務省 海外安全情報
+        <span class="emg-city japan">日本</span>
+      </div>
+      <a href="tel:+81363800047" class="emg-phone-row">
+        <span>24時間緊急相談（東京）</span>
+        <span class="emg-phone">+81-3-6380-0047</span>
+      </a>
+      <div class="emg-hours">🕐 24時間対応（海外から日本語で相談可能）</div>
+    </div>
+
+    <!-- 国別緊急番号 -->
+    <div class="emg-section-label" style="margin-top: 16px;">🗺 主要国の緊急番号</div>
+    <div class="info-card">
+      <div class="info-row"><span class="info-row-label">🇪🇺 EU全域（共通）</span><span class="info-row-val">112</span></div>
+      <div class="info-row"><span class="info-row-label">🇫🇷 フランス（警察）</span><span class="info-row-val">17</span></div>
+      <div class="info-row"><span class="info-row-label">🇩🇪 ドイツ（警察）</span><span class="info-row-val">110</span></div>
+      <div class="info-row"><span class="info-row-label">🇮🇹 イタリア（警察）</span><span class="info-row-val">113</span></div>
+      <div class="info-row"><span class="info-row-label">🇪🇸 スペイン（警察）</span><span class="info-row-val">091</span></div>
+      <div class="info-row"><span class="info-row-label">🇬🇧 イギリス（警察）</span><span class="info-row-val">999 / 112</span></div>
+      <div class="info-row"><span class="info-row-label">🇦🇹 オーストリア（警察）</span><span class="info-row-val">133</span></div>
+      <div class="info-row"><span class="info-row-label">🇨🇿 チェコ（警察）</span><span class="info-row-val">158</span></div>
+    </div>
+
+    <!-- その他 -->
+    <div class="emg-section-label" style="margin-top: 16px;">ℹ️ その他</div>
+    <div class="info-card">
+      <div class="info-row"><span class="info-row-label">パスポート紛失時</span><span class="info-row-val">最寄り大使館・領事館に連絡</span></div>
+      <div class="info-row"><span class="info-row-label">クレカ紛失時</span><span class="info-row-val">発行会社の海外緊急デスクへ</span></div>
+      <div class="info-row"><span class="info-row-label">外務省緊急連絡（日本）</span><span class="info-row-val">+81-3-3580-3311</span></div>
+    </div>
+
+  </section>
+</div>
+
+<!-- SOUVENIR TAB -->
+<div id="tab-souvenir" class="tab-section">
+  <section>
+    <div class="section-header">
+      <span class="section-icon">🎁</span>
+      <span class="section-title">お土産チェックリスト</span>
+      <span class="section-count" id="souvenir-progress-label">0 / 0</span>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span>購入済み</span>
+        <span id="souvenir-progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="souvenir-progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <div class="money-add-form" style="margin-top:20px;">
+      <div class="money-form-row">
+        <label>お土産の相手</label>
+        <input type="text" class="money-input" id="souvenir-text-input" placeholder="例：えりか" maxlength="60" />
+      </div>
+      <div class="money-form-row">
+        <label>誰のリスト</label>
+        <div class="payer-toggle">
+          <button class="payer-btn active" data-owner="虎" id="souvenir-btn-tora">虎</button>
+          <button class="payer-btn" data-owner="梅" id="souvenir-btn-ume">梅</button>
+        </div>
+      </div>
+      <button class="money-add-btn" id="souvenir-add-btn">＋ 追加</button>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <button class="souvenir-section-toggle" id="souvenir-tora-toggle" data-section="tora">
+        <span style="font-size:18px;">🐯</span>
+        <span style="font-weight:700; font-size:15px; letter-spacing:0.5px;">虎のお土産</span>
+        <span class="souvenir-toggle-arrow" id="souvenir-tora-arrow">▼</span>
+      </button>
+      <div class="souvenir-section-body" id="souvenir-tora-body">
+        <div class="checklist-items" id="souvenir-tora-items">
+          <div class="money-loading">読み込み中...</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <button class="souvenir-section-toggle" id="souvenir-ume-toggle" data-section="ume">
+        <span style="font-size:18px;">🌸</span>
+        <span style="font-weight:700; font-size:15px; letter-spacing:0.5px;">梅のお土産</span>
+        <span class="souvenir-toggle-arrow" id="souvenir-ume-arrow">▼</span>
+      </button>
+      <div class="souvenir-section-body" id="souvenir-ume-body">
+        <div class="checklist-items" id="souvenir-ume-items"></div>
+        <div id="souvenir-ume-empty" style="color:var(--muted); font-size:13px; padding:12px 0; display:none;">まだ登録なし</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- MONEY TAB -->
+<div id="tab-money" class="tab-section">
+  <section>
+    <div class="section-header">
+      <span class="section-icon">💶</span>
+      <span class="section-title">お金の管理</span>
+    </div>
+
+    <div class="money-summary-card" id="money-summary-card">
+      <div class="money-summary-totals">
+        <div class="money-grand-total">総支出：<strong id="money-grand-total-val">¥0</strong></div>
+        <div class="money-summary-total-item">
+          <span class="label">虎</span><span class="value" id="money-tora-total">¥0</span>
+        </div>
+        <div class="money-summary-total-item">
+          <span class="label">梅</span><span class="value" id="money-ume-total">¥0</span>
+        </div>
+      </div>
+      <div class="settlement-box settled" id="money-settlement">精算済み（支出なし）</div>
+    </div>
+
+    <div class="money-add-form">
+      <div class="money-form-row">
+        <label>項目</label>
+        <input type="text" class="money-input" id="money-item-input" placeholder="例：パリ 観光入場料" maxlength="60" />
+      </div>
+      <div class="money-form-row">
+        <label>金額（¥）</label>
+        <input type="number" class="money-input" id="money-amount-input" placeholder="例：8000" min="1" step="1" />
+      </div>
+      <div class="money-form-row">
+        <label>誰が払った</label>
+        <div class="payer-toggle">
+          <button class="payer-btn active" data-payer="虎" id="payer-btn-tora">虎</button>
+          <button class="payer-btn" data-payer="梅" id="payer-btn-ume">梅</button>
+        </div>
+      </div>
+      <button class="money-add-btn" id="money-add-btn">＋ 追加</button>
+    </div>
+
+    <div id="money-expense-list" class="expense-list">
+      <div class="money-loading">読み込み中...</div>
+    </div>
+  </section>
+</div>
+
+<div id="confirm-overlay">
+  <div id="confirm-box">
+    <div id="confirm-msg"></div>
+    <div class="confirm-btns">
+      <button class="confirm-btn" id="confirm-cancel">キャンセル</button>
+      <button class="confirm-btn" id="confirm-ok">削除する</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  🇪🇺 ヨーロッパ旅行 ／ 旅先・期間 調整中<br>
+</footer>
+
+<script>
+// PASSWORD GATE
+(function() {
+  const gate = document.getElementById('pw-gate');
+  const input = document.getElementById('pw-input');
+  const btn = document.getElementById('pw-btn');
+  const err = document.getElementById('pw-error');
+
+  function isTokenValid() {
+    const token = localStorage.getItem('europe-auth-token');
+    if (!token) return false;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+      return payload.exp > Math.floor(Date.now() / 1000);
+    } catch { return false; }
+  }
+
+  if (isTokenValid()) { gate.style.display = 'none'; return; }
+
+  async function attempt() {
+    btn.disabled = true;
+    try {
+      const res = await fetch('/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: input.value }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        localStorage.setItem('europe-auth-token', data.token);
+        gate.style.display = 'none';
+      } else {
+        throw new Error('wrong');
+      }
+    } catch {
+      err.classList.add('visible');
+      input.classList.add('error');
+      input.value = '';
+      setTimeout(() => input.classList.remove('error'), 400);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  btn.addEventListener('click', attempt);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+  input.focus();
+})();
+
+const CATEGORIES = [
+  { id: "docs", label: "📄 書類", items: [
+    { id: "passport", text: "パスポート（有効期限6ヶ月以上）", note: "必須" },
+    { id: "passport-copy", text: "パスポートのコピー（紙・スマホ保存）", note: "紛失時に備えて" },
+    { id: "schengen", text: "シェンゲン協定国の確認（ビザ不要か確認）", note: "EU加盟国以外は要確認" },
+    { id: "insurance", text: "海外旅行保険の加入・証書保存", note: "クレカ付帯でもOK。EU圏では必須レベル" },
+    { id: "flight", text: "航空券（eチケット）の保存", note: "" },
+    { id: "hotel", text: "ホテル予約確認書の保存", note: "" },
+    { id: "entry-form", text: "ETIAS（欧州旅行情報認証）の申請確認", note: "2025年以降、日本人にも必要になる予定" },
+  ]},
+  { id: "money", label: "💶 お金", items: [
+    { id: "euro", text: "ユーロ（現金）の両替", note: "市内の両替所 or ATM引き出しが有利" },
+    { id: "card", text: "クレジットカード（Visa / Mastercard）", note: "ヨーロッパでは現地払いが基本。ICチップ＋PIN必須" },
+    { id: "budget", text: "1日の予算の目安を立てておく", note: "食事・交通・観光・ショッピング別に" },
+    { id: "tip", text: "チップの相場を調べる", note: "レストランでは10〜15%が目安（国による）" },
+  ]},
+  { id: "luggage", label: "🧳 荷物", items: [
+    { id: "clothes", text: "服（旅行日数分）", note: "ヨーロッパは天候が変わりやすい。重ね着推奨" },
+    { id: "shoes", text: "歩きやすい靴", note: "石畳が多く、サンダル・ヒールは厳禁" },
+    { id: "rain", text: "折りたたみ傘", note: "特にイギリス・北欧は雨が多い" },
+    { id: "adapter", text: "変換プラグ（Cタイプ・Eタイプ 220V）", note: "国によってタイプが異なる場合あり" },
+    { id: "battery", text: "モバイルバッテリー", note: "終日外出するので必須" },
+    { id: "lock", text: "スーツケース用ロック（TSAロック）", note: "空港での荷物検査に対応" },
+  ]},
+  { id: "electronics", label: "📱 電子機器", items: [
+    { id: "sim", text: "ヨーロッパ用eSIM / SIM / WiFiルーター", note: "日本で事前購入が安くて便利" },
+    { id: "charger", text: "スマホ充電器", note: "" },
+    { id: "camera", text: "カメラ・SDカード・充電器", note: "教会・美術館・街並みなど映えスポット多数" },
+  ]},
+  { id: "health", label: "💊 健康", items: [
+    { id: "medicine", text: "常備薬（胃薬・頭痛薬・風邪薬）", note: "現地薬局でも買えるが言語の壁がある" },
+    { id: "bandaid", text: "絆創膏・消毒液", note: "石畳歩きで靴擦れ対策も" },
+    { id: "sunscreen", text: "日焼け止め", note: "南欧（イタリア・スペイン）は日差しが強い" },
+    { id: "cold-protection", text: "防寒具（特に北部・夜間）", note: "北欧・イギリス・アルプス周辺は冷える" },
+  ]},
+  { id: "apps", label: "🗺 アプリ", items: [
+    { id: "gmaps", text: "Google Maps オフラインマップのDL", note: "ヨーロッパではGoogleが主流" },
+    { id: "deepl", text: "DeepL（翻訳）インストール", note: "多言語対応に強い" },
+    { id: "translate", text: "Google翻訳（カメラ翻訳）インストール", note: "メニュー・看板の読み取りに便利" },
+    { id: "maps-me", text: "Maps.me（オフライン地図）インストール", note: "電波なし時のバックアップ" },
+    { id: "emergency-saved", text: "緊急連絡先をスマホに保存", note: "EU共通番号112 / 日本大使館", link: "emergency" },
+    { id: "currency", text: "通貨換算アプリのインストール", note: "XE Currency など" },
+  ]},
+  { id: "europe", label: "🇪🇺 ヨーロッパ特有", items: [
+    { id: "pickpocket", text: "スリ・置き引き対策の準備", note: "駅・観光地は特に注意。ウエストポーチ推奨" },
+    { id: "toilet", text: "公共トイレは有料（€0.5〜1程度）を想定", note: "小銭を常に持ち歩く" },
+    { id: "water", text: "飲料水は基本有料（南欧注意）", note: "水道水の可否は国・地域による" },
+    { id: "museum", text: "主要美術館・博物館の予約確認", note: "ルーヴル・ウフィツィ等は事前予約必須" },
+    { id: "dress-code", text: "教会の服装規定の確認", note: "肩・膝を隠す服装が必要な場合あり" },
+    { id: "food-list", text: "食べたいもの・行きたい店のリストアップ", note: "予約が必要な人気店は早めに" },
+  ]},
+];
+
+const TOTAL = CATEGORIES.reduce((s, c) => s + c.items.length, 0);
+let checked = JSON.parse(localStorage.getItem('europe-checklist') || '{}');
+let activeCat = CATEGORIES[0].id;
+
+function saveChecked() {
+  localStorage.setItem('europe-checklist', JSON.stringify(checked));
+}
+
+function renderProgress() {
+  const done = Object.values(checked).filter(Boolean).length;
+  const pct = Math.round(done / TOTAL * 100);
+  document.getElementById('progress-label').textContent = done + ' / ' + TOTAL;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function renderTabs() {
+  const container = document.getElementById('cat-tabs');
+  container.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-tab' + (cat.id === activeCat ? ' active' : '');
+    const done = cat.items.filter(i => checked[i.id]).length;
+    btn.textContent = cat.label + (done > 0 ? ' ' + done + '/' + cat.items.length : '');
+    btn.onclick = () => { activeCat = cat.id; renderTabs(); renderItems(); };
+    container.appendChild(btn);
+  });
+}
+
+function renderItems() {
+  const cat = CATEGORIES.find(c => c.id === activeCat);
+  const container = document.getElementById('checklist-items');
+  container.innerHTML = '';
+  cat.items.forEach(item => {
+    const done = !!checked[item.id];
+    const div = document.createElement('div');
+    div.className = 'check-item' + (done ? ' done' : '');
+    const linkIcon = item.link ? '<span class="check-link-icon">→</span>' : '';
+    div.innerHTML = '<div class="checkbox">' + (done ? '✓' : '') + '</div>'
+      + '<div class="check-label">' + item.text
+      + (item.note ? '<span class="check-note">' + item.note + '</span>' : '')
+      + '</div>' + linkIcon;
+    div.onclick = () => {
+      checked[item.id] = !checked[item.id];
+      saveChecked();
+      renderProgress();
+      renderTabs();
+      renderItems();
+    };
+    if (item.link) {
+      const icon = div.querySelector('.check-link-icon');
+      icon.onclick = (e) => {
+        e.stopPropagation();
+        switchTab(item.link);
+      };
+    }
+    container.appendChild(div);
+  });
+}
+
+// NAV TABS
+function switchTab(target) {
+  document.querySelectorAll('.nav-menu-item').forEach(t => t.classList.remove('active'));
+  const menuItem = document.querySelector(`.nav-menu-item[data-tab="${target}"]`);
+  if (menuItem) menuItem.classList.add('active');
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('visible'));
+  document.getElementById('tab-' + target).classList.add('visible');
+  document.getElementById('nav-dropdown').classList.remove('open');
+  document.getElementById('nav-hamburger').classList.remove('open');
+  if (target === 'checklist') { renderTabs(); renderItems(); renderProgress(); }
+  if (target === 'souvenir') { initSouvenir(); }
+  if (target === 'money') { initMoney(); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function navigateTo(tab, anchorId) {
+  switchTab(tab);
+  if (anchorId) {
+    setTimeout(() => {
+      const el = document.getElementById(anchorId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+}
+
+document.querySelectorAll('.nav-menu-item').forEach(item => {
+  item.addEventListener('click', e => {
+    e.preventDefault();
+    switchTab(item.dataset.tab);
+  });
+});
+
+document.querySelectorAll('.home-nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    switchTab(btn.dataset.tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+document.getElementById('nav-logo').addEventListener('click', () => {
+  switchTab('home');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// HAMBURGER
+(function() {
+  const btn = document.getElementById('nav-hamburger');
+  const dropdown = document.getElementById('nav-dropdown');
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = dropdown.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+  });
+  document.addEventListener('click', e => {
+    if (!dropdown.contains(e.target) && e.target !== btn) {
+      dropdown.classList.remove('open');
+      btn.classList.remove('open');
+    }
+  });
+})();
+
+renderProgress();
+renderTabs();
+renderItems();
+
+// SOUVENIR CHECKLIST
+let souvenirInitialized = false;
+let selectedSouvenirOwner = '虎';
+let souvenirData = [];
+
+function renderSouvenirProgress(list) {
+  const total = list.length;
+  const done = list.filter(s => s.checked).length;
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('souvenir-progress-label').textContent = done + ' / ' + total;
+  document.getElementById('souvenir-progress-pct').textContent = pct + '%';
+  document.getElementById('souvenir-progress-fill').style.width = pct + '%';
+}
+
+function renderSouvenirSection(items, containerId, emptyId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  const sorted = [
+    ...items.filter(s => !s.checked).sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0)),
+    ...items.filter(s => s.checked).sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0)),
+  ];
+  sorted.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'check-item' + (item.checked ? ' done' : '');
+    div.dataset.id = item.id;
+    div.innerHTML =
+      '<span class="drag-handle" title="ドラッグで並べ替え">⠿</span>' +
+      '<div class="checkbox">' + (item.checked ? '✓' : '') + '</div>' +
+      '<div class="check-label">' + item.text + '</div>' +
+      '<button class="expense-delete-btn" data-id="' + item.id + '" title="削除" style="margin-left:auto;">×</button>';
+    const toggleCheck = async (e) => {
+      e.stopPropagation();
+      const token = localStorage.getItem('europe-auth-token');
+      await fetch('/souvenirs/' + item.id, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ checked: !item.checked }),
+      });
+      await loadSouvenirs();
+    };
+    div.querySelector('.checkbox').addEventListener('click', toggleCheck);
+    div.querySelector('.check-label').addEventListener('click', toggleCheck);
+    div.querySelector('.expense-delete-btn').addEventListener('click', async (e) => {
+      e.stopPropagation();
+      await deleteSouvenir(item.id, item.text);
+    });
+    container.appendChild(div);
+  });
+  if (emptyId) {
+    const emptyEl = document.getElementById(emptyId);
+    if (emptyEl) emptyEl.style.display = items.length === 0 ? 'block' : 'none';
+  }
+}
+
+async function loadSouvenirs() {
+  const token = localStorage.getItem('europe-auth-token');
+  try {
+    const res = await fetch('/souvenirs', { headers: { 'Authorization': 'Bearer ' + token } });
+    if (!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    souvenirData = data.souvenirs;
+    const tora = souvenirData.filter(s => s.owner === '虎');
+    const ume = souvenirData.filter(s => s.owner === '梅');
+    renderSouvenirProgress(souvenirData);
+    renderSouvenirSection(tora, 'souvenir-tora-items', null);
+    renderSouvenirSection(ume, 'souvenir-ume-items', 'souvenir-ume-empty');
+  } catch {
+    document.getElementById('souvenir-tora-items').innerHTML = '<div class="money-error">読み込みに失敗しました。</div>';
+  }
+}
+
+async function deleteSouvenir(id, text) {
+  const ok = await showConfirm('「' + text + '」を削除しますか？');
+  if (!ok) return;
+  const token = localStorage.getItem('europe-auth-token');
+  try {
+    const res = await fetch('/souvenirs/' + id, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + token },
+    });
+    if (!res.ok) throw new Error('delete failed');
+    await loadSouvenirs();
+  } catch {
+    alert('削除に失敗しました。もう一度お試しください。');
+  }
+}
+
+// DRAG SORT
+function setupDragSort(container, reorderFn) {
+  let dragging = null;
+
+  container.addEventListener('pointerdown', e => {
+    if (!e.target.closest('.drag-handle')) return;
+    const item = e.target.closest('[data-id]');
+    if (!item || item.parentElement !== container) return;
+    e.preventDefault();
+    dragging = item;
+    item.classList.add('dragging');
+    item.setPointerCapture(e.pointerId);
+  });
+
+  container.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    e.preventDefault();
+    dragging.style.pointerEvents = 'none';
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    dragging.style.pointerEvents = '';
+    const target = el?.closest('[data-id]');
+    if (!target || target === dragging || target.parentElement !== container) return;
+    const rect = target.getBoundingClientRect();
+    if (e.clientY < rect.top + rect.height / 2) {
+      container.insertBefore(dragging, target);
+    } else if (target.nextSibling !== dragging) {
+      container.insertBefore(dragging, target.nextSibling);
+    }
+  });
+
+  container.addEventListener('pointerup', async () => {
+    if (!dragging) return;
+    dragging.classList.remove('dragging');
+    const ids = [...container.querySelectorAll('[data-id]')].map(el => el.dataset.id);
+    dragging = null;
+    await reorderFn(ids);
+  });
+
+  container.addEventListener('pointercancel', () => {
+    if (dragging) dragging.classList.remove('dragging');
+    dragging = null;
+  });
+}
+
+// MONEY TAB
+let moneyInitialized = false;
+let selectedPayer = '虎';
+
+function formatMoney(n) {
+  return '¥' + Math.round(n).toLocaleString('ja-JP');
+}
+
+function renderMoneySummary(list) {
+  const active = list.filter(e => !e.settled);
+  const toraTotal = active.filter(e => e.paidBy === '虎').reduce((s, e) => s + e.amount, 0);
+  const umeTotal  = active.filter(e => e.paidBy === '梅').reduce((s, e) => s + e.amount, 0);
+  const grand = toraTotal + umeTotal;
+  const diff = Math.round(toraTotal - grand / 2);
+
+  document.getElementById('money-grand-total-val').textContent = formatMoney(grand);
+  document.getElementById('money-tora-total').textContent = formatMoney(toraTotal);
+  document.getElementById('money-ume-total').textContent = formatMoney(umeTotal);
+
+  const box = document.getElementById('money-settlement');
+  if (grand === 0) {
+    box.textContent = '精算済み（支出なし）';
+    box.className = 'settlement-box settled';
+  } else if (diff === 0) {
+    box.textContent = '精算済み（支払い均等）';
+    box.className = 'settlement-box settled';
+  } else if (diff > 0) {
+    box.textContent = `梅 → 虎　${formatMoney(diff)} を払う`;
+    box.className = 'settlement-box';
+  } else {
+    box.textContent = `虎 → 梅　${formatMoney(-diff)} を払う`;
+    box.className = 'settlement-box';
+  }
+}
+
+function renderMoneyList(list) {
+  const container = document.getElementById('money-expense-list');
+  if (list.length === 0) {
+    container.innerHTML = '<div class="money-empty">まだ支出がありません。最初の支出を追加しましょう！</div>';
+    return;
+  }
+  container.innerHTML = '';
+  const sorted = [
+    ...list.filter(e => !e.settled).sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0)),
+    ...list.filter(e => e.settled).sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0)),
+  ];
+  sorted.forEach(e => {
+    const settled = !!e.settled;
+    const row = document.createElement('div');
+    row.className = 'expense-row' + (settled ? ' settled' : '');
+    row.dataset.id = e.id;
+    const date = new Date(e.createdAt);
+    const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
+    row.innerHTML =
+      `<span class="drag-handle" title="ドラッグで並べ替え">⠿</span>` +
+      `<button class="expense-check-btn${settled ? ' checked' : ''}" title="精算済みにする">✓</button>` +
+      `<span class="expense-item">${e.item}</span>` +
+      `<span class="expense-payer-badge ${e.paidBy === '虎' ? 'payer-tora' : 'payer-ume'}">${e.paidBy}</span>` +
+      `<span class="expense-amount">${formatMoney(e.amount)}</span>` +
+      `<span class="expense-date">${dateStr}</span>` +
+      `<button class="expense-delete-btn" data-id="${e.id}" title="削除">×</button>`;
+    row.querySelector('.expense-check-btn').addEventListener('click', async () => {
+      const token = localStorage.getItem('europe-auth-token');
+      await fetch(`/expenses/${e.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ settled: !settled }),
+      });
+      await loadExpenses();
+    });
+    row.querySelector('.expense-delete-btn').addEventListener('click', () => deleteExpense(e.id, e.item));
+    container.appendChild(row);
+  });
+}
+
+async function loadExpenses() {
+  const token = localStorage.getItem('europe-auth-token');
+  const container = document.getElementById('money-expense-list');
+  try {
+    const res = await fetch('/expenses', { headers: { 'Authorization': 'Bearer ' + token } });
+    if (!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    renderMoneyList(data.expenses);
+    renderMoneySummary(data.expenses);
+  } catch {
+    container.innerHTML = '<div class="money-error">読み込みに失敗しました。再読み込みしてください。</div>';
+  }
+}
+
+function showConfirm(message) {
+  return new Promise(resolve => {
+    const overlay = document.getElementById('confirm-overlay');
+    document.getElementById('confirm-msg').textContent = message;
+    overlay.classList.add('open');
+    const ok = document.getElementById('confirm-ok');
+    const cancel = document.getElementById('confirm-cancel');
+    function done(result) {
+      overlay.classList.remove('open');
+      ok.removeEventListener('click', onOk);
+      cancel.removeEventListener('click', onCancel);
+      resolve(result);
+    }
+    function onOk() { done(true); }
+    function onCancel() { done(false); }
+    ok.addEventListener('click', onOk);
+    cancel.addEventListener('click', onCancel);
+    overlay.addEventListener('click', e => { if (e.target === overlay) done(false); }, { once: true });
+  });
+}
+
+async function deleteExpense(id, item) {
+  const ok = await showConfirm(`「${item}」を削除しますか？`);
+  if (!ok) return;
+  const token = localStorage.getItem('europe-auth-token');
+  try {
+    const res = await fetch(`/expenses/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + token },
+    });
+    if (!res.ok) throw new Error('delete failed');
+    await loadExpenses();
+  } catch {
+    alert('削除に失敗しました。もう一度お試しください。');
+  }
+}
+
+function initMoney() {
+  if (moneyInitialized) { loadExpenses(); return; }
+  moneyInitialized = true;
+
+  setupDragSort(document.getElementById('money-expense-list'), async (ids) => {
+    const token = localStorage.getItem('europe-auth-token');
+    await fetch('/expenses/reorder', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ ids }),
+    });
+  });
+
+  document.getElementById('payer-btn-tora').addEventListener('click', () => {
+    selectedPayer = '虎';
+    document.getElementById('payer-btn-tora').classList.add('active');
+    document.getElementById('payer-btn-ume').classList.remove('active');
+  });
+  document.getElementById('payer-btn-ume').addEventListener('click', () => {
+    selectedPayer = '梅';
+    document.getElementById('payer-btn-ume').classList.add('active');
+    document.getElementById('payer-btn-tora').classList.remove('active');
+  });
+
+  document.getElementById('money-add-btn').addEventListener('click', async () => {
+    const itemInput = document.getElementById('money-item-input');
+    const amountInput = document.getElementById('money-amount-input');
+    const item = itemInput.value.trim();
+    const amount = parseInt(amountInput.value, 10);
+    if (!item) { itemInput.focus(); return; }
+    if (!Number.isFinite(amount) || amount <= 0) { amountInput.focus(); return; }
+
+    const btn = document.getElementById('money-add-btn');
+    btn.disabled = true;
+    const token = localStorage.getItem('europe-auth-token');
+    try {
+      const res = await fetch('/expenses', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ item, amount, paidBy: selectedPayer }),
+      });
+      if (!res.ok) throw new Error('post failed');
+      itemInput.value = '';
+      amountInput.value = '';
+      await loadExpenses();
+    } catch {
+      alert('追加に失敗しました。もう一度お試しください。');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  loadExpenses();
+}
+
+function initSouvenir() {
+  if (souvenirInitialized) { loadSouvenirs(); return; }
+  souvenirInitialized = true;
+
+  const souvenirReorderFn = async (ids) => {
+    const token = localStorage.getItem('europe-auth-token');
+    await fetch('/souvenirs/reorder', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ ids }),
+    });
+  };
+  setupDragSort(document.getElementById('souvenir-tora-items'), souvenirReorderFn);
+  setupDragSort(document.getElementById('souvenir-ume-items'), souvenirReorderFn);
+
+  ['tora', 'ume'].forEach(section => {
+    const key = 'europe-souvenir-collapse-' + section;
+    const body = document.getElementById('souvenir-' + section + '-body');
+    const arrow = document.getElementById('souvenir-' + section + '-arrow');
+    if (localStorage.getItem(key) === 'collapsed') {
+      body.classList.add('collapsed');
+      arrow.classList.add('collapsed');
+    }
+    document.getElementById('souvenir-' + section + '-toggle').addEventListener('click', () => {
+      const isCollapsed = body.classList.toggle('collapsed');
+      arrow.classList.toggle('collapsed', isCollapsed);
+      localStorage.setItem(key, isCollapsed ? 'collapsed' : 'open');
+    });
+  });
+
+  document.getElementById('souvenir-btn-tora').addEventListener('click', () => {
+    selectedSouvenirOwner = '虎';
+    document.getElementById('souvenir-btn-tora').classList.add('active');
+    document.getElementById('souvenir-btn-ume').classList.remove('active');
+  });
+  document.getElementById('souvenir-btn-ume').addEventListener('click', () => {
+    selectedSouvenirOwner = '梅';
+    document.getElementById('souvenir-btn-ume').classList.add('active');
+    document.getElementById('souvenir-btn-tora').classList.remove('active');
+  });
+
+  document.getElementById('souvenir-add-btn').addEventListener('click', async () => {
+    const textInput = document.getElementById('souvenir-text-input');
+    const text = textInput.value.trim();
+    if (!text) { textInput.focus(); return; }
+
+    const btn = document.getElementById('souvenir-add-btn');
+    btn.disabled = true;
+    const token = localStorage.getItem('europe-auth-token');
+    try {
+      const res = await fetch('/souvenirs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ text, owner: selectedSouvenirOwner }),
+      });
+      if (!res.ok) throw new Error('post failed');
+      textInput.value = '';
+      await loadSouvenirs();
+    } catch {
+      alert('追加に失敗しました。もう一度お試しください。');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  loadSouvenirs();
+}
+
+// NAV RELOAD BUTTON
+(function() {
+  const btn = document.getElementById('nav-reload');
+  btn.addEventListener('click', () => {
+    btn.classList.add('spinning');
+    setTimeout(() => location.reload(), 300);
+  });
+})();
+
+// PULL TO REFRESH
+(function() {
+  const THRESHOLD = 72;
+  const MAX_HEIGHT = 56;
+  const indicator = document.getElementById('ptr-indicator');
+  const icon = document.getElementById('ptr-icon');
+  let startY = 0;
+  let pulling = false;
+  let triggered = false;
+
+  document.addEventListener('touchstart', e => {
+    if (window.scrollY === 0 && !triggered) {
+      startY = e.touches[0].clientY;
+      pulling = true;
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (!pulling || triggered) return;
+    const dy = e.touches[0].clientY - startY;
+    if (dy <= 0) { pulling = false; return; }
+    const h = Math.min(dy * 0.45, MAX_HEIGHT);
+    indicator.style.height = h + 'px';
+    const progress = Math.min(dy / THRESHOLD, 1);
+    icon.style.transform = `rotate(${progress * 270}deg)`;
+    if (dy >= THRESHOLD) {
+      indicator.classList.add('ptr-ready');
+    } else {
+      indicator.classList.remove('ptr-ready');
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => {
+    if (!pulling || triggered) return;
+    pulling = false;
+    const h = parseFloat(indicator.style.height || '0');
+    if (h >= MAX_HEIGHT * 0.75) {
+      triggered = true;
+      indicator.classList.remove('ptr-ready');
+      indicator.classList.add('ptr-loading');
+      indicator.style.height = '48px';
+      indicator.style.transition = 'height 0.15s ease';
+      setTimeout(() => location.reload(), 400);
+    } else {
+      indicator.style.transition = 'height 0.2s ease';
+      indicator.style.height = '0';
+      indicator.classList.remove('ptr-ready');
+      setTimeout(() => { indicator.style.transition = 'none'; }, 220);
+    }
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

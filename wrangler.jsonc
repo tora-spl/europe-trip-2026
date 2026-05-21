@@ -1,0 +1,23 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "europe-trip",
+	"main": "worker.js",
+	"compatibility_date": "2026-05-05",
+	"observability": {
+		"enabled": true
+	},
+	"assets": {
+		"directory": "./public",
+		"binding": "ASSETS"
+	},
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"kv_namespaces": [
+		{
+			"binding": "EXPENSES_KV",
+			"id": "REPLACE_WITH_KV_NAMESPACE_ID",
+			"preview_id": "REPLACE_WITH_PREVIEW_KV_ID"
+		}
+	]
+}

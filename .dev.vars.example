@@ -1,0 +1,2 @@
+PASSWORD=your-secret-password
+JWT_SECRET=your-random-jwt-secret-string
